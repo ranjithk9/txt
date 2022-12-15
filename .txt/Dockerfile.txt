@@ -1,0 +1,12 @@
+
+
+
+FROM centos
+RUN yum -y update
+RUN yum install -y vim
+RUN touch /tmp/Dummy
+
+
+FROM centos
+RUN yum -y update
+RUN touch /tmp/Dummy

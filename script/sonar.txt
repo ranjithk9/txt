@@ -1,0 +1,136 @@
+
+
+Skip to content
+Using Gmail with screen readers
+Meet
+Hangouts
+
+Conversations
+7.55 GB of 15 GB used
+Terms · Privacy · Program Policies
+Last account activity: 0 minutes ago
+Details
+#!/bin/bash
+ID=$(id -u)
+LOG=/tmp/sonar.log
+
+
+if  [ $ID -ne 0 ]; then
+	echo " run with user permission "
+	exit 1
+else
+	echo " ur runing with root "
+fi
+
+yum install wget java unzip -y  &>>$LOG
+
+if [ $? -ne 0 ]; then
+	echo " package failed "
+	exit 1
+else
+	echo "package success "
+fi
+
+echo " download mysql "
+
+wget https://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm -O /tmp/mysql-community-release-el7-7.noarch.rpm &>>$LOG
+
+if [ $? -ne 0 ]; then
+	echo " downloading mysql failed "
+	exit 1 
+else 
+	echo "  downloading mysql success "
+fi
+
+echo " install mysql"
+cd /tmp/
+rpm -ivh mysql-community-release-el7-7.noarch.rpm &>>LOG
+yum install mysql-server -y &>>LOG
+
+if [ $? -ne 0 ]; then
+	echo " installing mysql failed "
+	exit 1 
+else 
+	echo "  installing mysql success "
+fi
+
+echo " start mysql services "
+systemctl start mysqld
+
+if [ $? -ne 0 ]; then
+	echo " mysql services failed " 
+else 
+	echo "  mysql services success "
+fi
+
+echo " updated sonarqube database "
+echo "CREATE DATABASE sonarqube_db;
+CREATE USER 'sonarqube_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON sonarqube_db.* TO 'sonarqube_user'@'localhost' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;" > /tmp/sonar.sql
+mysql < /tmp/sonar.sql
+
+if [ $? -ne 0 ]; then
+	echo " updated sonarqube database failed "
+	 
+else 
+	echo "  updated sonarqube database success "
+fi
+
+echo " creating sonarqube service user "
+useradd sonarqube
+
+if [ $? -ne 0 ]; then
+	echo " sonarqube service account creation failed "
+	
+else 
+	echo "  sonarqube service account creation success "
+
+fi
+echo " downloading the sonarqube"
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.zip -o /tmp/sonarqube-6.7.zip &>>LOG
+
+if [ $? -ne 0 ]; then
+	echo " sonarqube download failed "
+	exit 1
+else 
+	echo "  sonarqube download success "
+fi
+
+echo "sonarqube installation"
+unzip /tmp/sonarqube-6.7.zip
+mv sonarqube-6.7 /opt/sonarqube
+chown sonarqube. /opt/sonarqube -R
+
+if [ $? -ne 0 ]; then
+	echo " sonarqube install failed "
+	exit 1 
+else 
+	echo " sonarqube install success "
+	
+fi
+echo "sonarqube dbconfig"
+echo 'sonar.jdbc.username=sonarqube_user'
+sonar.jdbc.password=password
+sonar.jdbc.url=jdbc:mysql://localhost:3306/sonarqube_db?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance ' > /opt/sonarqube/conf/sonar.properties
+if [ $? -ne 0 ]; then
+	echo " sonarqube dbconfig failed "
+	exit 1 
+else 
+	echo " sonarqube dbconfig success "
+	
+fi
+
+echo " updating sonar.sh file"
+sed -i 's/#RUN_AS_USER=/RUN_AS_USER=sonarqube/g' /opt/sonarqube/bin/linux-x86-64/sonar.sh
+
+
+if [ $? -ne 0 ]; then
+	echo " updating sonar.sh file failed "
+	exit 1 
+else 
+	echo " updating sonar.sh file success "
+	
+fi
+sonar.txt
+Displaying sonar.txt.

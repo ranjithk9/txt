@@ -1,0 +1,193 @@
+======== Dockerfile  Sample ==============
+
+
+<<FROM centos
+  RUN echo "Run One Updated"
+  RUN echo "Run TWO"
+  CMD echo "Echo From Image"
+  CMD echo "Echo From Latest"
+  RUN echo "RUN Three">>
+  
+
+for excute/run  the file < docker build -t imagename . >
+
+
+========================== 
+
+>>>docker build -t <image name> .
+
+>>> docker run -d -p 8080:5000 python-flask-app
+
+>>> docker system prune -a   (for deleting all stoped container)
+
+>>> docker stop <container_id>
+
+>>> docker rm <container_id>
+
+
+================== Docker Volume =====================
+
+>>> docker volume <name>
+
+>>> docker volume inspect <volume_name>
+
+>>> docker volume rm <volume_name> 
+
+>>> docker volume prune 
+
+
+==================== for nginx ============
+
+>>> docker pull nginx
+
+>>> docker run --name=webapp -d -p 80:80 nginx
+
+     $ docker exec -it webapp bash
+     $ cd/usr/share/nginx/html
+     $ echo "Welcome to Karan Network">index.html
+
+
+>>> docker stop <container_id>
+
+>>> docker run --name=webapp2 -d -p 80:80 nginx
+
+>>> docker stop <container_id>
+
+>>> docker volume create <new-vol>
+
+
+>>> docker run -d --name=webapp21 --mount source=new_vol,destination=/usr/share/nginx/html -p 80:80 nginx
+
+
+
+=================== Mount Volume =================
+
+==== Host Directory Mounting to Docker Container ======
+
+## Create Directory in host machinee
+$$ mkdir/tmp/nginx/html
+
+## Run Docker container for nginx image with directory mounting (container name is c1)
+>>> docker run -d -p 80:80 -v/tmp/nginx/html/:usr/share/nginx/html --name c1 nginx:latest
+
+## See the containers which are running (c1 should be running)
+>>> docker container ls
+
+Note: Acess Nginx webserver using Host Machine Public IP
+(it will not be displayed because index.html file not available in container)
+
+## Go to Mounted directory in host machine
+>>> cd/tmp/nginx/html
+
+
+
+
+
+    $ Crete index.htmk file
+    $ cp index.html/tmp/nginx/html
+
+
+========= Docker file for Spring Boot Appplication =============
+
+
+FROM openjdk:jdk1.8
+COPY target/sb-app.jar /usr/local/sb-app.jar
+WORKDIR 8080
+ENTRYPOINT["java","-jar",sb-app.jar]
+
+
+
+========= Docker Compose Configuration_docker-compose.yml ============
+
+
+version: "3"
+
+services:
+ 
+ boot-app:
+    images:sb-rest-api
+    port:
+     -"8080" :8080
+    depends_on:
+     -mysql-db
+
+ mysql-db
+    image: mysql:8
+    environment
+    -MYSQL_ROOT_PASSWORD=root
+    -MYSQL_DATABASE=bootdb
+
+
+======= Docker Netwoorking Commnds ==============
+
+>>> docker nerwork ls 
+
+>>> docker run --name nginx -d -p 80:80 nginx
+
+>>> docker inspect nginx
+
+>>> docker network create --driver bridgee my-network
+
+>>> docker run --name nginx20 -d my-network my -network -p 7070:80 nginx   (for custom network)
+
+
+### run 2 docker containers using My-Network and checkinng connectivity between 2 containerss
+
+>>> docker run --name nginx30 -d --network my-network -p 8080:80 nginx 
+
+>>> docker run --name nginx30 -d --network my-network -p 9090:80 nginx
+   
+
+
+========== Docker Swarm =================
+
+Note: Enable '2377' port for Swarm Cluster Communications
+
+>>> curl -fsSl https://get.docker.com -o get-docker.sh
+
+>>> sudo sh get-docker.sh
+
+   1-Master
+   2-Nodes
+
+ -> Connect to Master Machine and execute below command
+
+>>> sudo docker swarm init --advertise-addr <private>
+>>> sudo docker swarm join-token manager
+>>> sudo docker swarm join-token worker
+    
+    after this command you will get one command
+
+========= ++++++++++++++++++++++======================
+
+There are 2 types of service in docker swarm
+1.replic (default mode)
+2.global
+
+
+>>> sudo docker service create --name <serviceName> -p<hostport>:<containerPort><imagename>
+
+ eg: sudo docker service create --name java-web-app -p 8080:8080 ashokit/java/webapp
+
+++++++++++++++++++++++++++++++
+
+Note : By default 1 replica will be created 
+
+# check the services created
+>>> docker service ls
+
+# we can scale docker service
+>>> docker service scale <serviceName>=<no of replicas>
+
+# inspect docker service
+>>> sudo docker service inspect --pretty java-web-app
+
+# see service details
+>>> sudo docker service ps java-web-app
+
+
+# Remove one node from swarm cluster
+>>> sudo docker swarm leave 
+
+
+

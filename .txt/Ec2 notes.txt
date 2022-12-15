@@ -1,0 +1,27 @@
+==== EC2 ===
+
+>>> Ec2 stands for Elastic compute cloud.
+
+>>>Ec2 provides scailable capacity in the AWS cloud.
+
+>>>We can Develop and Deploy your application  faster.
+
+>>>We can use AWS EC2 to lunch as many as servers as you needed.
+
+>>>You can Configure ,Networking and manage storage service for these virtual server.
+
+
+===================================
+
+======>>>> Ec2 Componets or Building Blocks >>>=======
+
+>>> Key Pair
+
+>>> Security group
+
+>>> AMI
+
+>>>VPC & Subnet
+
+>>>Elastic IP Address
+

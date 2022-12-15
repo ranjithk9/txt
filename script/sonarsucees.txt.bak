@@ -1,0 +1,77 @@
+#!/bin/bash
+ID=$(id -u)
+LOG=/tmp/sonar.log
+MYSQL_URL=https://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm
+MYSQL_RPM=$(echo $MYSQL_URL | awk -F / '{print $NF}')
+SONAR_URL=https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.zip
+SONAR_ZIP=$(echo $SONAR_URL | awk -F / '{print $NF}')
+SONAR_SRC=$(echo $SONAR_ZIP | sed 's/.zip//')
+
+if  [ $ID -ne 0 ]; then
+	echo " run with user permission "
+	exit 1
+else
+	echo " ur runing with root "
+fi
+
+VALIDATE(){
+   if [ $1 -ne 0]
+     echo " $2 ... FAILED"
+	 exit 1
+else
+     echo " $2 ...SUCCESS
+   fi
+}
+
+yum install wget java unzip -y  &>$LOG
+VALIDATE $? "installing Sonar pre required packages"
+
+wget $MYSQL_URL -O /tmp/$MYSQL_RPM &>$LOG
+VALIDATE $? " download mysql "
+
+cd /tmp/
+rpm -ivh $MYSQL_RPM &>LOG
+yum install mysql-server -y &>LOG
+VALIDATE $? " install mysql"
+
+systemctl start mysqld &>LOG
+VALIDATE $? " start mysql services "
+
+if [ -f /tmp/sonar.sql ]; then
+    echo " sonar qube databaseupdated "
+else
+  echo "CREATE DATABASE sonarqube_db;
+  CREATE USER 'sonarqube_user'@'localhost' IDENTIFIED BY 'password';
+  GRANT ALL PRIVILEGES ON sonarqube_db.* TO 'sonarqube_user'@'localhost' IDENTIFIED BY 'password';
+  FLUSH PRIVILEGES;" > /tmp/sonar.sql
+  mysql < /tmp/sonar.sql
+  VALIDATE $? " updated sonarqube database "
+fi
+
+egrep "sonarqube" /etc/passwd >/dev/null
+if [ $? -eq 0 ]; then
+   echo "sonarqube user exit"
+else
+  useradd sonarqube
+  VALIDATE $? " creating sonarqube service user "
+if [ -d /opt/sonarqube ]; then
+    echo " sonarqube install completd "
+else 
+
+    wget $SONAR_URL -O /tmp/SONAR_ZIP &>LOG
+    unzip /tmp/SONAR_ZIP &>LOG
+    mv $SONAR_SRC /opt/sonarqube 
+    chown sonarqube. /opt/sonarqube -R
+    VALIDATE $? "sonarqube installation"
+fi
+
+echo 'sonar.jdbc.username=sonarqube_user
+sonar.jdbc.password=password
+sonar.jdbc.url=jdbc:mysql://localhost:3306/sonarqube_db?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance ' > /opt/sonarqube/conf/sonar.properties
+VALIDATE $? "sonarqube dbconfig"
+
+sed -i 's/#RUN_AS_USER=/RUN_AS_USER=sonarqube/g' /opt/sonarqube/bin/linux-x86-64/sonar.sh
+VALIDATE $? " updating sonar.sh file"
+
+sh /opt/sonarqube/bin/linux-x86-64/sonar.sh start &>LOG
+VALIDATE $? " starting sonarqube "

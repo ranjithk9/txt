@@ -1,0 +1,51 @@
+<<<<<<<<<===Jenkins Slave Configuration====>>>>
+
+
+step-1 -->> go to manage node 
+step-2 -->> Give the name to Producation >>
+
+
+
+====================================Git job config========================
+
+>..connecting that server
+
+>>>ls
+
+>.. rename that two files "agent 1.jar to agent.jar
+
+>>>mv agent\(1\).jar agent,jar
+
+>>>mv slave-agent\\(2\).jnip slave-agent.jnip
+
+>>>ls
+
+>.... after that copy the below node command and pase it in the console and you will get connected
+
+>>>sudo nano index.html    (for creation vim file)
+
+=========================
+>.... html creation 
+<html>
+<title>Welcome to </title>
+<body>
+<h1>karan networks</h1>
+</body>
+</html>
+
+==========================
+
+>>>git remote add orgin <git url>
+
+>>>git push,coomit done all  things 
+
+
+===================================Build job on Producation server 
+
+docker installation
+
+>>>sudo apt-get install docker.io
+
+>>>sudo docker rm -rf $(sudo docker ps -a -q)
+>>>sudo docker build /home/ubuntu/jenkins/workspace/website -t website
+>>>sudo docker run -it -p 82:80 -d website

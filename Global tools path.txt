@@ -1,0 +1,10 @@
+
+openjdk-11.0.2_linux-x64
+
+/opt/openjdk-11.0.2_linux-x64
+
+
+openjdk-17.0.5_linux-x64
+
+
+

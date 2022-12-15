@@ -1,0 +1,16 @@
+>>>docker run -it <image> <first cmmnd>
+
+--- download the image from the docker registrey (Docker hub)
+
+--- create a new container
+
+--- unique id assign to the container
+
+---- container will be started
+
+--- aatach the continer to the terminal interctively
+
+--- first command/scrpt/application will be executed
+
+
+  

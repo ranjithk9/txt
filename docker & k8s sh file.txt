@@ -1,0 +1,45 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install docker.io
+sudo usermod -aG docker $USER
+sudo systemctl start docker
+sudo systemctl enable docker
+
+
+
+#!/bin/bash
+sudo apt install curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg |sudo apt-key add
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+sudo apt-get install kubeadm kubelet kubectl kubernetes-cni
+sudo apt-mark hold kubeadm kubelet kubectl kubernetes-cni
+
+
+#!/bin/bash
+sudo swapoff -a
+sudo systemctl daemon-reload
+sudo systemctl start kubelet
+sudo systemctl enable kubelet.service
+
+
+
+ 
+
+apt install ipvsadm
+
+
+
+
+ubuntu@ip-172-31-55-87:/etc/systemd/system/kubelet.service.d$
+
+
+
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
+
+
+
+$ sudo kubeadm init --apiserver-advertise-address=3.80.18.103 --pod-network-cidr=172.31.0.0/16
+
+kubeadm reset systemctl daemon-reload kubeadm init --pod-network-cidr=172.31.0.0/16
+
+sudo kubeadm init –pod-network-cidr=172.31.0.0/16

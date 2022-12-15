@@ -1,0 +1,46 @@
+>>>mkdir ansible  (for creation Directory)
+
+
+>>>ansible -i inventory all --list-hosts  (for list out)
+
+
+>>>vim inventory
+    -------->>> [PROD]
+    ----------192.22.11.22
+    ----------191.11.30.22
+   Here give both IP or Name
+
+>>> ansible PROD -m ping                     172.31.46.161
+
+
+>>>ansible -i inventory PROD -u ec2-user --private-key=cf22.pem -m ping
+
+
+>>>ansible -i inventory PROD -u ec2-user --private-key=cf22.pem -b -m service -a "name=httpd state=started"     (for services start)
+
+
+
+>>>cp /etc/ansible/ansible.cfg .   (copy the ansible confg file to your local)
+
+
+
+>>> mv ansible/ /home/ec2-user/  (moving from root to local)
+
+
+
+>>> chown ec2-user:ec2-user ansible/ -R   (for permission)
+
+
+>>>mkdir playbooks/
+
+
+>>>vim exp.yaml
+    ---------- - name : ping playbook
+                 hosts : PROD
+                 tasks  : 
+                     -name : ping ansible-node
+                      ping :
+
+>>>ansible-playbook playbooks/exp.yaml
+
+

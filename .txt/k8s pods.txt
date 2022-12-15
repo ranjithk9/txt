@@ -1,0 +1,50 @@
+>>>sudo apt-get update -y && sudo apt-get install -y
+
+>>>sudo apt-get install docker-engine -y
+
+
+>>> sudo service docker start
+
+
+>>>install kubctl
+
+
+>>>curl -LO https://dl.k8s.io/release/v1.24.0/bin/linux/amd64/kubectl
+
+
+>>>sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+>>>>>>>>>>>>>>>>>>>>   [chmod +x kubectl
+mkdir -p ~/.local/bin
+mv ./kubectl ~/.local/bin/kubectl] >>>>>>>>>>>>>>>>>
+
+
+
+
+
+>>>kubectl create -f pod1.yml
+
+>>>kubectl apply -f pod1.yml
+
+>>>kubectl get pods
+
+>>>kubectl get pods -o wide
+
+>>>kubectl get poda --all-namespaces
+
+>>>kubctl describe pod <podname>
+
+
+>>>kubectl logs -f testpod1 -c c00
+
+>>>kubectl exce testpod1 -c coo --hostname -i
+
+>>>kubectl exce testpod1 -it -c c00 --/bin/bash
+
+
+>>>ps
+
+>>>ps -ef
+
+

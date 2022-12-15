@@ -1,0 +1,17 @@
+
+
+step -1 in General section just mntioned name onnly
+
+step-2   in source code add git hub credentials to jenkins 
+
+step-3 build trigger nothing to add
+
+step-4  In Build environmennt >>>>    delete workspace before works start
+
+
+step-5 In the build with maven goals 
+
+
+step-6 post build action >>> war file location 
+                         >>> tomcat credentials	
+						 >>> 

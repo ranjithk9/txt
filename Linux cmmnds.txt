@@ -1,0 +1,33 @@
+================ Create new files =======
+
+               touch <file name>
+     example : touch p1.txt
+               touch p1.pdf
+               touch p1.docx
+
+=============== Edit files ==============
+       
+               vi <file name>
+            
+      example : vi p1.txt
+                vi p1.pdf
+                vi p1.docx
+ 
+                     >>>> In vi editor >>>>
+                   Press <I>
+                   Escape 
+                    :wq!  (to save file)
+
+
+================= Read the files ===============
+
+             cat <file name>
+
+      example : cat p1.txt
+                cat p1.pdf
+                cat p1.docx
+
+
+===============  
+
+

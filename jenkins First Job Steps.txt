@@ -1,0 +1,33 @@
+>>> Go to New Item
+
+>>> Enter Item Name
+
+>>> Select "Free Style Project"
+
+>>> Enter Some Description 
+
+>>> Go to " Source Code Management "  ====> Select Git
+
+>>> Enter Project "Git Repo URL"
+
+>>> Add Your GitHub account credentials
+
+>>> Go to Build tab 
+
+>>> Click on Add Build Step and Select "Invoke Top Level Maven Target "
+
+>>> Select Maven and enter goals 'clean package'
+
+>>> Click on " Post Build Action " and Select " Deploy war/ear to container option 
+
+>>> Give path of war file ( **/*.war)
+
+>>> Enter Context Path (give project name)
+
+>>> Click on " Add Container " and Select Tomcat 9.x
+
+>>> Add Tomcat server credentials ( loke user name and password)
+
+>>> Enter Tomcat server URL
+
+>>> Click Apply and Save

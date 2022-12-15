@@ -1,0 +1,15 @@
+az vm open-port \
+--resource-group Atradius-Bootcamp \
+--name VM4  \
+--port 80 --priority 1020
+
+
+sudo az aks get-credentials --resource-group Atradius-Bootcamp --name vm4AKSCluster
+
+
+http://20.25.26.122:8080
+
+ACR_ID=$(az acr show --resource-group Atradius-Bootcamp --name acrvm4.azurecr.io --query "id" --output tsv)
+
+
+acrvm4.azurecr.io

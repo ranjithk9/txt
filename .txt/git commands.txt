@@ -1,0 +1,51 @@
+>>>git config --global user.name "ranjith"
+
+>>>git config --global user.email "ranjith_kurelli@persistent.com"
+
+
+>>>https://gitlab.com/venkyreddy709/crudstudent.git
+
+
+>>>
+http://localhost/phpmyadmin/
+
+select * from student;
+
+
+>>>https://github.com/ValaxyTech/hello-world.git
+
+>>>https://github.com/scmlearningcentre/maven.git
+
+
+>>>git branch -a  (list all branches)
+
+>>>git fetch orgin 
+
+>>>git log --oneline --all --graph
+
+>>>git branch --merge
+
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+>>> githup --- clone 
+eclipse -- download -- project open 
+xamp server - passord, username - create table 
+project run - http://localhost:8052/
+
+
+>>>https://youtu.be/foARzSz_1WU
+
+
+
+

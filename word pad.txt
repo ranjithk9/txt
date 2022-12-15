@@ -1,0 +1,52 @@
+Maven Notes 
+
+  
+
+
+>>> mvn archetype:generate -DgroupId=karan -DartifactId=Demo-vc -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+
+
+
+>>>  mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=karan -DartifactId=sbi-web-app -DinteractiveMode=false
+
+
+================  want to change port number  ===================
+cd conf >> server.xml 
+
++++++ to change port number ++++++++
+
+
+
+=============================== for adding user and password details ========================
+  
+ cd conf >> tomcat-users.xml   after opening this file add below details
+
+ 
+<role rolename="manager-gui"/>
+<user username="tomcat" password="tomcat" roles="manager-gui"/>
+<role rolename="admin-gui"/>
+<role rolename="manager-script"/>
+<user username="admin" password="admin" roles="manager-gui,admin-gui"/>
+
+
+========================== permission for all users access tomcat server ========================
+
+cd webapps >> cd manager >> cd META-INF >> vi context.xml
+
+
+<Context antiResourceLocking="false" privileged="true" >
+  <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
+                   sameSiteCookies="strict" />
+
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow=".*" />
+
+           +++++++++++ allow=".*" /> for all users can acces +++++++++++++++++
+
+  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
+</Context>
+~
+
+
+=============================================================

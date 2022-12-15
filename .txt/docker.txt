@@ -1,0 +1,150 @@
+
+
+>>>yum update -y
+
+>>>yum install wget -y
+
+>>>yum install docker.io -y
+
+>>>docker run -it centos
+
+
+>>>docker ps -a
+
+
+>>> ps -ef
+
+>>>docker attach test1
+
+>>>docker start test1
+
+>>>docker stop test1
+
+>>>docker rm test1
+
+
+>>>docker run -it testimg /bin/bash
+
+
+>>>docker run --name test00 -it centos /bin/bash
+
+>>> cd/tmp
+
+
+
+>>> cat /etc/os-release
+
+>>>free -m 
+
+>>> df -kh
+
+
+
+
+>>>docker ps
+
+>>>docker ps -a
+
+>>>docker start <container id / container name>
+
+
+>>>docker stop <container id / container name>
+
+
+>>>docker rm <container id / container name>
+
+
+>>>docker attach <container id / container name>
+
+
+>>>docker logs -f <container id / container name>
+
+
+>>>docker exec -it <container id / container name> <cmd>
+
+
+>>>docker run -it centos /bin/bash
+
+
+>>>docker run --name temp -it centos /bin/bash
+
+
+>>>docker run --name testoo -d centos /bin/sh -c "while true; do echo hello karan; sleep 2; done"
+
+
+>>>docker exec -it test00 /bin/bash
+
+>>>docker run --name mynginx -d -p 8080:80 nginx
+
+>>>docker run --name myjenkins -d -p 8080:8080 jenkins
+
+
+>>>netstat -an |grep 80
+
+
+>>>docker run --name myapache -d -p 80:80 httd
+
+
+======================================================
+
+>>>vim dockerfile 
+
+                        >>> FROM centos
+                            RUN yum update -y
+                            RUN touch /tmp/DUMMY
+                            CMD ["/bin/bash"]
+                            ENV JAVA_HOME /opt/jdk1.8
+
+
+
+                       >>> FROM centos
+                           CMD ["echo","Hello"]
+
+                       >>> FROM centos
+                           ENTRYPOINT ["echo","Hello"]
+
+
+                      >>> /bin/sh -c "while true; do echo hello-world; sleep 8; done
+
+==========================================================
+
+for create own Image 
+>>>vim Dockerfile.Apache
+         
+                     >>>FROM ubuntu:12.04
+                        RUN apt-get update && apt-get install -y apache2 && apt-get clean && rm -rf /var/lib/apt/lists/*
+                        ENV APACHE_RUN_USER www-data
+                        ENV APACHE_RUN_GROUP www-data
+                        ENV APACHE_LOG_DIR /var/log/apache2
+                        EXPOSE 80
+                        CMD ["/usr/sbin/apache2", "-D" "FOREGROUND"]
+>>>docker buildn-t myapache -f ./Dockerfile.Apache .
+
+
+==========================================================
+
+
+>>>docker build -t myimage0 .
+>>>docker run -it myimg1
+
+
+>>>cat /etc/os-release
+
+
+=========================================================
+
+>>>docker login <Registry>
+
+>>>docker tag <localimage> <tag> <Registry>/<repository>/<Image>:<Tag>
+   docker tag  myapache:buil102 ranjith/myapache:build102
+
+>>>docker push <Registry>/<reposistory>/<Image>:<Tag>
+   docker push  ranjith/myapache:build102
+
+
+
+
+
+
+
+

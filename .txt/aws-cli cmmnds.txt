@@ -1,0 +1,135 @@
+
+
+
+======== AWS Commands =============
+
+
+
+=====================  AWS CLI filter ==========
+
+
+
+>>> aws ec2 describe-instance --filter Name=Instance-Type,Value=t2.micro         [server side filter]
+
+>>> aws ec2 describe-regions --query 'Regions[?RegionName==`us-west-2`]'      [client sisde filter]
+
+===================================================
+
+>>> aws ec2 describe-regions --dry-run
+
+>>> sudo apt-get install python-pip
+
+
+>>> sudo pip install jmespath-terminal
+
+
+==================== EC2 Commnds =============
+
+>>> aws<space><any type of service><space>help
+
+>>> aws ec2 describe-instance
+
+>>> aws ec2 describe-instance--output table
+
+>>> aws ec2 describe-instance--output text
+
+>>> vim ~/.aws/credentials
+
+>>> vim ~/.aws/config
+
+>>> aws ec2 create-key-pair --key-name mykey24
+
+>>> aws ec2 terminate-instances --instance-ids i-4bf4efc5
+
+
+
+
+===================== S3 ==================
+
+
+>>>  aws s3 mb s3://bucket name unique
+
+>>> aws s3 cp pic1.jpg s3://buck76/pic2.jpg
+
+
+
+====================== IAM =====================
+
+
+
+>>> aws iam create-user --user-name user1   { for user creation }
+
+>>> aws iam create-group --group-name group1  {for group creation}
+
+>>> aws iam add-user-to-group --user-name user1 --group-name group1             {user added to group}
+
+
+>>> aws iam get-grouo --group-name group1    {get the group details}
+
+
+>>> aws iam create-login-profile --user-name user1 --password ********             
+
+
+>>> aws iam create-access-key --user-name user1
+
+
+>>> aws iam delete-access-key --user-name user1 --access-key-id AKIAALSDDD79896DCV
+
+>>> aws create-access-key --user-name user1 >> key.txt    {in this commnd key will be stored in key.txt file}
+
+
+>>> aws iam attach-group-policy --policy-arn <arnname> --group-name group1
+
+
+>>> aws iam detach-group-policy --policy-arn <arnname> --group-name group1
+
+
+>>> aws iam remove-user-from-group --group-name group1 --user-name user1 
+
+>>> aws iam delete-group --group-name group1
+
+
+==================== ELB =========================
+
+>>> aws elbv2 create-load-balancer --name demo-loadbalncer --subnets subnet-8f4d6des --security-group sg-achy9891d
+
+
+>>> aws elbv2 describe-load-balancers
+
+
+>>> aws elbv2 describe-target-groups
+
+
+>>> aws elbv2 create-target-group --name demo targe
+tgrp --protocol HTTP --port 80 --vpc-id vpc-4cb0c562
+
+>>> aws elbv2 register-targets --target-group-arn arnname --targets ec2-instance id
+
+
+>>> aws elbv2 create-listener --load-balancer-arn <arnname> --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=<target grp arn name>
+
+
+>>> aws elbv2 describe-target-health --target-group-arn <target grp arn name>
+
+
+>>> aws elb create-load-balancer --load-balancer-name 
+
+
+>>> aws elb register-instances-with-load-balancer --load-balancer-name demo-load balncer
+
+
+==================== SNS & SQS ============
+
+>>> aws sns create-topic --name demo-topic
+
+>>> aws sns subscribe --topic-arn <arn name> --protocol email --notification-endpoint user@gnail.com
+
+
+>>> aws sqs send-message --queue-url www.rtyfgh.com message-body "hello world"
+
+
+================= AWS ECS ==================
+
+>>> aws ecs create-cluster --cluster-name democluster
+
+>>> aws ec2 run-instance --image-id ami-438b2f2 --count 1 --instance-type t2.micro --region ap-southeast-1 --iam-instance-profile Name="ecsinstanceRole"

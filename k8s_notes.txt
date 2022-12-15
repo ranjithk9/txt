@@ -1,0 +1,167 @@
+======== Kubenetes_Setup =====
+
+
+1. Master Node (t2.medium)
+2. Worker Node (t2.micro)
+
+
+======== Security groups ===================
+
+All trafic , 0-65535
+
+
+======== Master & Slave Common Commands Execution =========
+
++++++++++ Step-1 : Install Docker +++++++++++
+
+>>> sudo apt-get update
+
+>>> sudo apt-get install docker.io
+
+>>> sudo usermod -aG docker $USER
+
+>>> sudo systemctl start docker
+
+>>> sudo systemctl enable docker
+
+
+++++++++  Step-2 : Installing Kubernetes  ++++++++++++
+
+## instsll curl
+>>> sudo apt install curl
+
+## Add the GPG Kubernetes key with the command
+>>> curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg |sudo apt-key add
+
+
+## To add the Xenial Kubernetes repsitory
+>>> sudo apt-add-repository "deb http://apt.kubernetes.io/
+kubernetes-xenial main"
+
+
+## installing Kubeadm (kubernetes Admin)
+>>> sudo apt-get install kubeadm kubelet kubectl kubernetes-cni  
+
+
+## Run the below command to check whether the version of the componetes installed are compatible
+>>> sudo apt-mark hold kubeadm kubelet kubectl kubernetes-cni
+
+## Check kubeadm version
+>>> kubeadm version
+
+## Disable swap memory
+>>> sudo swapoff -a
+>>> sudo systemctl daemon-reload
+>>> sudo systemctl start kubelet
+>>> sudo systemctl enable kubelet.service
+
+
+## To set hostname in Master node
+>>> sudo hostnamectl set-hostname master-node
+
+
+## TO set host name in Slave Node
+>>> sudo hostnamectl set-hostname slave-node
+
+
+++++++++++++++                                              ++++++++++++++
+++++++++++++++ Master & Slave Common Commands Execution End ++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+======== Only Master Node Execution will be start ========
+
+
++++++++++ Step-3 Running and Deploying Kubernetes ++++++++
+
+## Initialize kubrenetes on Master node
+>>> sudo kubeadm init
+
+## You need to run the following as a normal user to start using your cluster
+
+>>> mkdir -p $HOME/.KUBE
+>>> sudo cp-i/etc/kubernetes/admin.conf $HOME/.kube/config
+>>> sudo chown $(id -u) $HOME/.kube/config
+
+
+### check nodes connected to cluster 
+>>> kubectl get nodes
+
+### Deploy Pod Network to cluster
+>>> kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentaion/kube-flannel.yml
+
+
+## Get worker token to add worker to cluster
+>>> kubeadm token create --print-join-command
+
+## Add the slave node to form a cluster by executing token in worker nodes as root use
+
+
+## Get Nodes
+>>> kubectl get nodes
+
+## Get the pods running 
+>>> kubectl get pods --all-namespaces
+
+## To restart Kublet service
+>>> sudo systemctl restart kubelet.service
+
+
+
+======= Deploying an Application to the kubernetes Cluster =======
+
+>>> kubectl create deployment nginx --image=nginx
+
+>>> kubectl describe deployment nginx
+
+>>> kubectl create service nodeport ngnx --tcp=80:80
+
+
+The command above will create public facing service for the Nginx deployment. This being a nodeport deployment, kubernetes assigns the servies a port in the range of 32000 +
+
+## You can get the current service by using the command
+>>> kubectl get svc
+
+
+## Delete Kuberents deployement
+>>> kubectl delete deployment nginx
+
+## Uninstalling Kubernetes
+>>> kubectl delete node --all
+
+>>> sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
+
+>>> sudo apt-get autoremove
+
+
+
+
+====== We Can access Master Node from remote machine using kubectl ==========
+
+
+>>> curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stsble.txt)/bin/linux/amd64/kubectl
+
+>>> chmod +x./kubectl
+
+>>> sudo mv./kubectl/usr/local/bin/kubectl
+
+>>> kubectl version
+
+>>> mkdir~/.kube
+
+Note : Take kube config file from master and it keep it here
+
+>>> cat~/.kube/config
+
+>>> vi~/kube/config
+
+Note: Take kube config file from master and it keep it here
+   
+
+
+
+
+
+
+
+

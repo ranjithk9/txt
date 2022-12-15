@@ -1,0 +1,25 @@
+  
+
+
+>>> mvn archetype:generate -DgroupId=karan -DartifactId=Demo-vc -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+
+
+
+>>>  mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=karan -DartifactId=sbi-web-app -DinteractiveMode=false
+
+
+>>> mvn archetype:generate -DgroupId=karan -DartifactId=dextro -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+
+>>> mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=killer -DartifactId=bhavai-love -DinteractiveMode=false
+
+
+
+>>> mvn archetype:generate 
+-DgroupId=killer-auto 
+-DartifactId=xetro
+-DarchetypeArtifactId=maven-archetype-webapp 
+-DinteractiveMode=false
+
+

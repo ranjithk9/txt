@@ -1,0 +1,9 @@
+>>> git init     for create local repo
+>>> git clone
+>>> git status
+>>> git add .
+>>>git commit -m 'files added'
+>>>git push 
+>>>git branch <branch name>       create new branch
+>>>git checkout <branch name>     switch branches 
+>>>git branch -d <branch name>    delete branch

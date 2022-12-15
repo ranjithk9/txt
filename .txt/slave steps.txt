@@ -1,0 +1,28 @@
+
+
+>>>yum update -y
+
+>>>yum install -y openjdk-8-jdk
+
+>>>vi ~/.ssh/authorized-keys
+
+>>>cd /usr/local
+
+>>>wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+
+>>>tar xzf apache-maven-3.8.6-bin/tar.gz
+
+>>>ls apache-maven-3.8.6/bin
+
+>>>ln -s apache-maven-3.8.6 maven
+
+>>>ls /usr/local/maven/bin/mvn
+
+>>>export M2_HOME=/usr/local/maven
+
+>>>export PATH=${M2_HOME}/bin:${PATH}
+
+>>>echo $PATH
+
+>>>
+

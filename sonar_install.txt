@@ -1,0 +1,69 @@
+ 
+
+===========  Sonar Qube Installation ======
+  
+>>> sudo su 
+
+>>> yum install wget -y
+
+>>> cd/opt
+
+>>> install java
+
+>>> cd /opt
+
+>>> yum install wget unzip -y
+
+>>> wget https://binaries.sonarsource.com/Distributin/sonarqubesoarqube-7.8.zip
+
+>>>unzip sonarqube-7.8.zip
+
+
+=================================================
+
+Sonar qube not working on root user , so we have to add the new user and 
+
+>>> useradd sonar
+
+>>> visudo
+
+>>> Configure sudo user without pwd
+ sonar ALL=(ALL)   NOPASSWDD: ALL
+
+
+>>> Change ownership for sonar fo;der
+
+>>> chmod -R 775 /opt/sonarqube-7.8
+
+>>> su -sonar server status
+
+
+
+==========================================================
+
+Integrate Sonar Server with Java Maven App
+
+
+>>> configure sonar properties under <properties/> tag in pom.xml
+
+
+-----------<sonar.host.url>server-url</sonar.host.url>
+-----------<sonar.login>username</sonar.login>
+-----------<sonar.password>pwd</sonar.password>
+
+
+>>> Go to poject pom.xml file location and execute below maven goal
+    
+         mvn sonar:sonar
+
+
+>>> After build success go to dasg board and verfiy that
+   note: Instead of username and pwd can configursonar token in pom.xml
+
+
+---------go to sonar login >> click on profile
+
+ >>My accounts >> security >> Generate token
+
+
+

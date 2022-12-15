@@ -1,0 +1,9 @@
+AWs service - eC2,
+              S3,
+              VPC,
+              Subnet,
+              security groups
+              firewalls
+              cloud formation
+              basic scripting knowldge , 
+              good to know AWS aurora database

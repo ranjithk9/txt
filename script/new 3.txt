@@ -1,0 +1,67 @@
+#!/bin/bash
+id=$(id -u)
+log=/tmp/sonar.log
+
+if  [ $id -ne 0 ]; then
+	echo " run with user permission "
+	exit 1
+else
+	echo " ur runing with root "
+fi
+
+yum install wget java unzip -y  &>>$log
+
+if [ $? -ne 0 ]; then
+	echo " package failed "
+	exit 1
+else
+	echo "package success "
+fi
+
+echo " download mysql "
+
+wget https://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm -o /tmp/mysql-community-release-el7-5.noarch.rpm &>>$log
+
+if [ $? -ne 0 ]; then
+	echo " downloading mysql failed "
+	exit 1 
+else 
+	echo "  downloading mysql success "
+fi
+
+echo " install mysql"
+cd /tmp/
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum install mysql-server -y
+
+if [ $? -ne 0 ]; then
+	echo " installing mysql failed "
+	exit 1 
+else 
+	echo "  installing mysql success "
+fi
+
+echo " start mysql services "
+systemctl start mysqld
+
+if [ $? -ne 0 ]; then
+	echo " mysql services failed "
+	exit 1 
+else 
+	echo "  mysql services success "
+fi
+
+echo " updated sonarqube database"
+echo " CREATE DATABASE sonarqube_db;
+CREATE DATABASE sonarqube_db;
+CREATE USER 'sonarqube_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON sonarqube_db.* TO 'sonarqube_user'@'localhost' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;" > /tmp/sonar.sql
+mysql < /tmp/sonar.sql
+
+if [ $? -ne 0 ]; then
+	echo " updated sonarqube database failed "
+	exit 1 
+else 
+	echo "  updated sonarqube database success "
+fi

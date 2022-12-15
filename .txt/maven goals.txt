@@ -1,0 +1,13 @@
+https://github.com/devopshydclub/vprofile-project.git
+
+
+
+SNAP-REPO=vprofile-snapshot
+NEXUS-USER=admin
+NEXUS-PASS=admin@1234
+RELEASE-REPO=vprofile-release
+CENTRAL-REPO=vpro-maven-central
+NEXUS-GRP-REPO=vpro-maven-group
+NEXUSIP=
+NEXUSPORT=8081
+ 

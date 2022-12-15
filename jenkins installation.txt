@@ -1,0 +1,28 @@
+ 
+ step 1 >>>  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+ 
+
+step 2 >> sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+step-3 >> sudo amazon-linux-extras install java-openjdk11
+step-4 >>  yum install jenkins
+
+
+
+
+========= if you want change jenkins port number =============
+
+>>> go to root folder 
+>>> open / folder
+>>> go to sysconfig folder
+>>> go to jenkins file and edit
+
+=================================================
+
+
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz
+
+
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz
+
+

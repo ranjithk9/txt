@@ -1,0 +1,12 @@
+Cloud Formation Building Blocks
+
+1. Format Version
+2. Description
+3. Metadata
+4. Parameters
+5. Rules
+6. Mappings
+7. Conditions
+8. Transform
+9. Resources
+10.Outputs
